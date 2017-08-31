@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="fw.android.com.freedomweather.splash.SplashActivity">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="@dimen/dimen_16dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher"
+            android:transitionName="@string/transition_name"
+            android:id="@+id/iv_logo" />
+
+        <TextView
+            android:id="@+id/tv_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:alpha="0"
+            android:text="@string/logo_tip"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/big_text_size" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/dimen_8dp"
+        android:text="@string/app"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/smallest_text_size" />
+
+</RelativeLayout>

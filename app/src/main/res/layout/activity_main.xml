@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dimen_16dp"
+    tools:context="fw.android.com.freedomweather.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        android:layout_weight="1" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@color/colorPrimary"
+        android:layout_height="wrap_content">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_1dp"
+            android:layout_gravity="center_vertical"
+            android:background="@android:color/white" />
+
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="right|center_vertical"
+            android:scaleType="centerCrop"
+            android:layout_marginRight="@dimen/dimen_8dp"
+            android:src="@mipmap/ic_launcher"
+            android:transitionName="@string/transition_name"
+            android:id="@+id/imageView" />
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorPrimary"
+        android:layout_weight="1" />
+
+</LinearLayout>
