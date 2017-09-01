@@ -22,6 +22,8 @@ public class SplashActivity extends BaseActivity {
 
     private final int WHAT_GO_MAIN = 1;
 
+    private final int WHAT_FINISH = 2;
+
     private final int WHAT_DELAY = 3000;
 
     @Override
@@ -45,6 +47,8 @@ public class SplashActivity extends BaseActivity {
             startActivity(intent, ActivityOptions
                     .makeSceneTransitionAnimation(this, iv_logo, getResources().getString(R.string.transition_name))
                     .toBundle());
+            handler.sendEmptyMessageDelayed(WHAT_FINISH, 1000);
+        } else if (what == WHAT_FINISH) {
             finish();
         }
     }
