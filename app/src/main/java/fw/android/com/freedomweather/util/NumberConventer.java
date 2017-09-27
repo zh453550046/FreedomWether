@@ -16,7 +16,7 @@ public class NumberConventer {
         return sd2;
     }
 
-    public static String ToCH(Integer intInput) {
+    private static String ToCH(Integer intInput) {
         String si = intInput.toString();
         String sd = "";
         if (si.length() == 1) // 個
@@ -53,7 +53,7 @@ public class NumberConventer {
         return sd;
     }
 
-    public static String GetCH(int input) {
+    private static String GetCH(int input) {
         String sd = "";
         switch (input) {
             case 1:
