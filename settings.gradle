@@ -1,1 +1,1 @@
-include ':app', ':PileLayoutLibrary'
+include ':moudule_main', ':viewlib', ':main_builder', ':utillib', ':frameworklib'
