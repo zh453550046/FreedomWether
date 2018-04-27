@@ -1,1 +1,1 @@
-include ':moudule_main', ':viewlib', ':main_builder', ':utillib', ':frameworklib'
+include ':moudule_main', ':viewlib', ':main_builder', ':frameworklib', ':datalib', ':toolslib', ':networkLib', ':imagelib'

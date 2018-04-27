@@ -1,0 +1,39 @@
+package com.noah.mgtv.network.rxjava;
+
+import android.content.Context;
+
+import com.noah.mgtv.datalib.BaseNetWorkModule;
+import com.noah.mgtv.network.NetworkCallback;
+import com.noah.mgtv.network.api.BaseObserver;
+import com.noah.mgtv.network.networkevent.HandlerRequestErrorUtil;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Response;
+
+/**
+ * Created by zhouweinan on 2018/4/3.
+ */
+
+public class RxClient implements RxClientInterface {
+
+    private Context mContext;
+
+    private boolean mInit = false;
+
+    @Override
+    public void init(Context context) {
+        mContext = context.getApplicationContext();
+        mInit = true;
+    }
+
+    @Override
+    public void sendRequestByRxJava(Observable<Response<BaseNetWorkModule>> observable, NetworkCallback callBack) {
+       if (mInit){
+           observable.subscribeOn(Schedulers.io()) // 在子线程中进行Http访问
+                   .observeOn(AndroidSchedulers.mainThread()) // UI线程处理返回接口
+                   .subscribe(new BaseObserver(mContext,callBack,new HandlerRequestErrorUtil()));
+       }
+    }
+}

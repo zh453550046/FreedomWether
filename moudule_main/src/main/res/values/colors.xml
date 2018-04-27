@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#116498</color>
     <color name="colorAccent">#FFFFFF</color>
     <color name="color_light">#60C3FE</color>
+    <color name="pileLayout_item_bg">#B3EEEEEE</color>
 </resources>

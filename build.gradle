@@ -38,9 +38,16 @@ ext {
     ]
 
     normalDependencies = [
-            "v4"    : 'com.android.support:support-v4:25.2.0',
-            "v7"    : 'com.android.support:appcompat-v7:25.2.0',
-            "design": 'com.android.support:design:25.2.0'
+            "v4"                   : 'com.android.support:support-v4:25.2.0',
+            "v7"                   : 'com.android.support:appcompat-v7:25.2.0',
+            "design"               : 'com.android.support:design:25.2.0',
+            "rxandroid"            : 'io.reactivex.rxjava2:rxandroid:2.0.1',
+            "rxjava"               : 'io.reactivex.rxjava2:rxjava:2.1.6',
+            "retrofit"             : 'com.squareup.retrofit2:retrofit:2.3.0',
+            "retrofitConverterGson": 'com.squareup.retrofit2:converter-gson:2.3.0',
+            "retrofitAdapterRxjava": 'com.squareup.retrofit2:adapter-rxjava2:2.3.0',
+            "loggingInterceptor"   : 'com.squareup.okhttp3:logging-interceptor:3.8.1',
+            "fresco"               : 'com.facebook.fresco:fresco:1.9.0'
     ]
 }
 

@@ -10,19 +10,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.noah.mgtv.imagelib.ImageDrawView;
+import com.noah.mgtv.toolslib.NumberConventer;
+import com.noah.mgtv.toolslib.ScreenUtil;
 import com.stone.pile.libs.PileLayout;
 
-import fw.android.com.utillib.NumberConventer;
-import fw.android.com.utillib.ScreenUtil;
 import zalex.person.com.frameworklib.base.BaseActivity;
 
 public class MainActivity extends BaseActivity {
-
     private NavigationView navigationView;
-
-    private long backTime;
-
     private PileLayout pileLayout;
+    private ImageDrawView bgDrawView;
+    private long backTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +71,9 @@ public class MainActivity extends BaseActivity {
 
     private void initView() {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
+        bgDrawView = (ImageDrawView) findViewById(R.id.main_bg);
+
+        bgDrawView.setImageURI("res://fw.android.com.freedomweather/"+R.mipmap.main_page_bg);
     }
 
     private void setViewSize() {

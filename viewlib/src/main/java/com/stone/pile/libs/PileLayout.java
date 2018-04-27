@@ -18,6 +18,8 @@ import android.widget.FrameLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+import fw.android.com.viewlib.R;
+
 /**
  * Created by xmuSistone on 2017/5/12.
  */

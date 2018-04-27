@@ -8,10 +8,13 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/datalib" />
             <option value="$PROJECT_DIR$/frameworklib" />
+            <option value="$PROJECT_DIR$/imagelib" />
             <option value="$PROJECT_DIR$/main_builder" />
             <option value="$PROJECT_DIR$/moudule_main" />
-            <option value="$PROJECT_DIR$/utillib" />
+            <option value="$PROJECT_DIR$/networkLib" />
+            <option value="$PROJECT_DIR$/toolslib" />
             <option value="$PROJECT_DIR$/viewlib" />
           </set>
         </option>
