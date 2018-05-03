@@ -6,21 +6,44 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.noah.mgtv.imagelib.ImageDrawView;
 
 import fw.android.com.freedomweather.MainActivity;
 import fw.android.com.freedomweather.R;
 import zalex.person.com.frameworklib.base.BaseActivity;
-import zalex.person.com.frameworklib.common.BaseActivityHandler;
+import zalex.person.com.frameworklib.location.Location;
+import zalex.person.com.frameworklib.location.LocationListener;
+import zalex.person.com.frameworklib.location.LocationManager;
+import zalex.person.com.frameworklib.route.RouterManager;
+import zalex.person.com.frameworklib.route.RouterSchema;
 
 public class SplashActivity extends BaseActivity {
     private ImageDrawView splashBg;
     private ImageView iv_logo;
-    private BaseActivityHandler handler = new BaseActivityHandler(this);
+    private TextView tv_city;
+
     private final int WHAT_GO_MAIN = 1;
     private static final int WHAT_FINISH = 2;
     private static final int WHAT_DELAY = 3000;
+    private LocationListener mListener = new LocationListener() {
+        @Override
+        public void onLocationRecieve(Location location) {
+            if (tv_city != null) {
+                tv_city.setAlpha(0);
+                tv_city.setText(location.getCity() + location.getDistrict());
+                tv_city.animate().setDuration(1000).alpha(1).start();
+                sendMessage(WHAT_GO_MAIN, WHAT_DELAY);
+            }
+        }
+
+        @Override
+        public void onError() {
+            RouterManager.buildRouter().uri(RouterSchema.SCHEMA_SELECT_CITYS).build();
+            finish();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +51,10 @@ public class SplashActivity extends BaseActivity {
         setContentView(R.layout.activity_splash);
 
         splashBg = (ImageDrawView) findViewById(R.id.splash_bg);
+        tv_city = (TextView) findViewById(R.id.tv_city);
         iv_logo = (ImageView) findViewById(R.id.iv_logo);
         splashBg.setImageURI(Uri.parse("res://fw.android.com.freedomweather/" + R.mipmap.splash_bg));
-        iv_logo.animate().setDuration(3000).alpha(1).start();
-
-        handler.sendEmptyMessageDelayed(WHAT_GO_MAIN, WHAT_DELAY);
-
+        LocationManager.bindListener(mListener);
     }
 
     @Override
@@ -44,10 +65,15 @@ public class SplashActivity extends BaseActivity {
             startActivity(intent, ActivityOptions
                     .makeSceneTransitionAnimation(this, iv_logo, getResources().getString(R.string.transition_name))
                     .toBundle());
-            handler.sendEmptyMessageDelayed(WHAT_FINISH, 1000);
+            sendMessage(WHAT_FINISH, 1000);
         } else if (what == WHAT_FINISH) {
             finish();
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        LocationManager.unBindListener();
+    }
 }

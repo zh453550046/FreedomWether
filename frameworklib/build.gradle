@@ -9,7 +9,11 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
     }
 
     buildTypes {
@@ -18,15 +22,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+            jni.srcDirs = []
+        }
+    }
 
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation rootProject.ext.normalDependencies.v7
     testImplementation rootProject.ext.test.junit
     testImplementation rootProject.ext.test.mock
     androidTestImplementation rootProject.ext.test.androidTestRules
     androidTestImplementation rootProject.ext.test.androidTestRunner
     androidTestImplementation rootProject.ext.test.espresso
+    implementation rootProject.ext.normalDependencies.router
+    annotationProcessor rootProject.ext.normalDependencies.routerAnnotations
+    implementation project(':toolslib')
 }

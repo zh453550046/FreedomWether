@@ -73,7 +73,7 @@ public class MainActivity extends BaseActivity {
         navigationView = (NavigationView) findViewById(R.id.navigation_view);
         bgDrawView = (ImageDrawView) findViewById(R.id.main_bg);
 
-        bgDrawView.setImageURI("res://fw.android.com.freedomweather/"+R.mipmap.main_page_bg);
+        bgDrawView.setImageURI("res://fw.android.com.freedomweather/" + R.mipmap.main_page_bg);
     }
 
     private void setViewSize() {
@@ -84,10 +84,6 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @Override
-    public void handleMessage(Message message) {
-
-    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -97,7 +93,7 @@ public class MainActivity extends BaseActivity {
                 backTime = currentTime;
                 Toast.makeText(this, "再按一次返回键退出", Toast.LENGTH_SHORT).show();
             } else {
-                finish();
+                onBackPressed();
             }
             return true;
         }

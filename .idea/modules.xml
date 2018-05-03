@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/FreedomWether.iml" filepath="$PROJECT_DIR$/FreedomWether.iml" />
       <module fileurl="file://$PROJECT_DIR$/viewlib/PileLayoutLibrary.iml" filepath="$PROJECT_DIR$/viewlib/PileLayoutLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/moudule_main/app.iml" filepath="$PROJECT_DIR$/moudule_main/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/citytoollib/citytoollib.iml" filepath="$PROJECT_DIR$/citytoollib/citytoollib.iml" />
       <module fileurl="file://$PROJECT_DIR$/datalib/datalib.iml" filepath="$PROJECT_DIR$/datalib/datalib.iml" />
       <module fileurl="file://$PROJECT_DIR$/frameworklib/frameworklib.iml" filepath="$PROJECT_DIR$/frameworklib/frameworklib.iml" />
       <module fileurl="file://$PROJECT_DIR$/imagelib/imagelib.iml" filepath="$PROJECT_DIR$/imagelib/imagelib.iml" />

@@ -6,13 +6,16 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import zalex.person.com.frameworklib.R;
+import zalex.person.com.frameworklib.common.BaseActivityHandler;
 
 
 /**
  * Created by zhouweinan on 2017/8/30.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public class BaseActivity extends AppCompatActivity {
+
+    private BaseActivityHandler mHandler = new BaseActivityHandler(this);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -20,5 +23,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
     }
 
-    public abstract void handleMessage(Message message);
+    protected void sendMessage(int what, long delay) {
+        mHandler.sendEmptyMessageDelayed(what, delay);
+    }
+
+    public void handleMessage(Message message) {
+
+    }
 }

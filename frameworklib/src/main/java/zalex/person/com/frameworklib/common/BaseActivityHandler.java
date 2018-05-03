@@ -24,7 +24,7 @@ public class BaseActivityHandler extends Handler {
         target = new WeakReference<>(baseActivity);
     }
 
-    protected BaseActivity getTarget() {
+    private BaseActivity getTarget() {
         return target != null ? target.get() : null;
     }
 

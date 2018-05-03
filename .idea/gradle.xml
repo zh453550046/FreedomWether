@@ -8,6 +8,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/citytoollib" />
             <option value="$PROJECT_DIR$/datalib" />
             <option value="$PROJECT_DIR$/frameworklib" />
             <option value="$PROJECT_DIR$/imagelib" />

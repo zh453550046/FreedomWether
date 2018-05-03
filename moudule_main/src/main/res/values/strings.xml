@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">自由天气</string>
     <string name="app">FreedomWeather</string>
-    <string name="logo_tip">Today is another day</string>
+    <string name="logo_tip">正在定位中&#8230;</string>
     <string name="transition_name">name</string>
 </resources>

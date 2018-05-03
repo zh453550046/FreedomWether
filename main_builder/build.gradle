@@ -12,6 +12,25 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
+        lintOptions {
+            abortOnError false
+        }
+
+        signingConfigs {
+            debug {
+                keyAlias 'android'
+                keyPassword 'fw12123'
+                storeFile file('./../fwkey')
+                storePassword 'fw12123'
+            }
+
+            release {
+                keyAlias 'android'
+                keyPassword 'Klyg8888'
+                storeFile file('./../fwkey')
+                storePassword 'fw12123'
+            }
+        }
     }
 
     buildTypes {
@@ -26,4 +45,5 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':moudule_main')
+    implementation project(':citytoollib')
 }

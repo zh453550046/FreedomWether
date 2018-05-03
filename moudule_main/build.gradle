@@ -28,7 +28,7 @@ dependencies {
     androidTestImplementation rootProject.ext.test.androidTestRunner
     androidTestImplementation rootProject.ext.test.espresso
     implementation rootProject.ext.normalDependencies.design
-    implementation project(path: ':viewlib')
+    implementation project(':viewlib')
     implementation project(':frameworklib')
     implementation project(':toolslib')
     implementation project(':imagelib')
