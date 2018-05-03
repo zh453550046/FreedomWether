@@ -10,6 +10,6 @@ public class RouterSchema {
 
     private static final String GROUP_PAGE = "page";
 
-    public static final String SCHEMA_SELECT_CITYS = SCHEMA + GROUP_PAGE + SCHEMA + "citys";
+    public static final String SCHEMA_SELECT_CITIES = SCHEMA + GROUP_PAGE + SCHEMA + "cities";
 
 }

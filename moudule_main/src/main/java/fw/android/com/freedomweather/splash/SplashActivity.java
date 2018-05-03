@@ -40,7 +40,7 @@ public class SplashActivity extends BaseActivity {
 
         @Override
         public void onError() {
-            RouterManager.buildRouter().uri(RouterSchema.SCHEMA_SELECT_CITYS).build();
+            RouterManager.buildRouter().uri(RouterSchema.SCHEMA_SELECT_CITIES).build();
             finish();
         }
     };

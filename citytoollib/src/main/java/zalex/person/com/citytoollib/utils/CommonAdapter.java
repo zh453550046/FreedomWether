@@ -57,7 +57,7 @@ public abstract class CommonAdapter<T> extends RecyclerView.Adapter<ViewHolder> 
 
     /**
      * 在onCreateHolder里调用的，但是在增加了HeaderFooter后，postion位置，会不正确。
-     * 所以如果使用了{@link HeaderAndFooterWrapperAdapter},建议使用 {@link #setListener(int, ViewHolder)} 这个方法，返回的位置是正确的。
+     * 所以如果使用了HeaderAndFooterWrapperAdapter,建议使用 {@link #setListener(int, ViewHolder)} 这个方法，返回的位置是正确的。
      *
      * @param parent
      * @param viewHolder

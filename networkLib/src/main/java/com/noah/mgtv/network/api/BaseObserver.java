@@ -56,9 +56,11 @@ public class BaseObserver implements Observer<Response<BaseNetWorkModule>> {
                     mNetworkCallback.onSuccessInError(baseNetWorkModule);
                 }
             }
+            mNetworkCallback = null;
         } else {
             mHandler.handlerHttpError(response);
         }
+
     }
 
     @Override
@@ -66,6 +68,7 @@ public class BaseObserver implements Observer<Response<BaseNetWorkModule>> {
         mHandler.handlerNetworkError(e);
         if (mNetworkCallback != null) {
             mNetworkCallback.onFaile(e);
+            mNetworkCallback = null;
         }
     }
 

@@ -104,7 +104,6 @@ public abstract class HeaderRecyclerAndFooterWrapperAdapter extends RecyclerView
         } else if (mHeaderDatas.size() == headerPos) {//调用addHeaderView
             addHeaderView(layoutId, data);
         } else {
-            //
             addHeaderView(layoutId, data);
         }
     }

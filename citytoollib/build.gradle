@@ -39,4 +39,5 @@ dependencies {
     implementation rootProject.ext.normalDependencies.router
     annotationProcessor rootProject.ext.normalDependencies.routerAnnotations
     implementation project(':frameworklib')
+    implementation project(':networkLib')
 }
