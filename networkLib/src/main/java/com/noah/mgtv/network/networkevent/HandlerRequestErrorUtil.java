@@ -11,7 +11,7 @@ import retrofit2.Response;
  * Created by zhouweinan on 2018/4/3.
  */
 
-public class HandlerRequestErrorUtil implements HandleRequestErrorInterface {
+public class HandlerRequestErrorUtil<T> implements HandleRequestErrorInterface<T> {
     @Override
     public boolean checkNetworkAvailableBeforConnect(Context context) {
         if (!NetworkUtils.isNormalNetWork(context)) {
@@ -22,12 +22,12 @@ public class HandlerRequestErrorUtil implements HandleRequestErrorInterface {
     }
 
     @Override
-    public void handlerSuccessInErrorState(Response<BaseNetWorkModule> response) {
+    public void handlerSuccessInErrorState(Response<T> response) {
         // do report, this error belongs to logic error.
     }
 
     @Override
-    public void handlerHttpError(Response<BaseNetWorkModule> response) {
+    public void handlerHttpError(Response<T> response) {
         // do report, this error's http code are not between 200 and 300.
     }
 

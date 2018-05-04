@@ -1,5 +1,6 @@
 package zalex.person.com.citytoollib.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,8 @@ import zalex.person.com.citytoollib.model.MeituanHeaderBean;
 import zalex.person.com.citytoollib.utils.CommonAdapter;
 import zalex.person.com.citytoollib.utils.HeaderRecyclerAndFooterWrapperAdapter;
 import zalex.person.com.citytoollib.utils.ViewHolder;
+import zalex.person.com.frameworklib.route.RouterManager;
+import zalex.person.com.frameworklib.route.RouterSchema;
 
 /**
  * Created by zhouweinan on 2018/5/3.
@@ -37,7 +40,10 @@ public class MeituanHeaderFooterAdapter extends HeaderRecyclerAndFooterWrapperAd
                         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                Toast.makeText(mContext, "cityName:" + cityName, Toast.LENGTH_SHORT).show();
+                                RouterManager.buildRouter().uri(RouterSchema.SCHEMA_MAIN_PAGE).build();
+                                if (mContext instanceof Activity) {
+                                    ((Activity) mContext).finish();
+                                }
                             }
                         });
                     }

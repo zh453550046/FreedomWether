@@ -2,6 +2,7 @@ package zalex.person.com.citytoollib.model;
 
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,6 +32,13 @@ public class MeituanHeaderBean extends BaseIndexPinyinBean {
     public MeituanHeaderBean setSuspensionTag(String suspensionTag) {
         this.suspensionTag = suspensionTag;
         return this;
+    }
+
+    public void addCity(String city) {
+        if (cityList == null) {
+            cityList = new ArrayList<>();
+        }
+        cityList.add(city);
     }
 
     @Override

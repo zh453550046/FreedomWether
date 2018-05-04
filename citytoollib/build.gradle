@@ -40,4 +40,6 @@ dependencies {
     annotationProcessor rootProject.ext.normalDependencies.routerAnnotations
     implementation project(':frameworklib')
     implementation project(':networkLib')
+    implementation project(':toolslib')
+    implementation project(':datalib')
 }

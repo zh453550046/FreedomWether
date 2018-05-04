@@ -3,13 +3,19 @@ package com.noah.mgtv.network;
 import android.content.Context;
 
 import com.noah.mgtv.datalib.BaseNetWorkModule;
+import com.noah.mgtv.datalib.hefeng.HeFengModule;
 import com.noah.mgtv.network.api.ApiManager;
+import com.noah.mgtv.network.api.CityUrlApi;
 import com.noah.mgtv.network.api.LiveUrlApi;
 import com.noah.mgtv.network.api.MGliveApi;
 import com.noah.mgtv.network.publicparams.HeaderUtil;
 import com.noah.mgtv.network.rxjava.RxClient;
+import com.noah.mgtv.network.rxjava.RxClientHelper;
+import com.noah.mgtv.network.rxjava.RxClientHelperInterface;
 import com.noah.mgtv.network.rxjava.RxClientInterface;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -25,17 +31,19 @@ public class NetworkRequestFactory {
 
     private static LiveUrlApi mLivewApi;
 
-    private final static RxClientInterface mClient = new RxClient();
+    private static CityUrlApi mCityApi;
 
+    private static final RxClientHelperInterface mRxClientHelper = new RxClientHelper();
 
     public static void init(Context context) {
         mMGliveApi = ApiManager.getMGliveApi();
         mLivewApi = ApiManager.getLiveUrlAPi();
-        mClient.init(context);
+        mCityApi = ApiManager.getCityUrlApi();
+        mRxClientHelper.init(context);
     }
 
 
-    public static void getMGLiveMenu(NetworkRequest networkRequest, NetworkCallback networkCallback) {
+    public static void getMGLiveMenu(NetworkRequest networkRequest, NetworkCallback<BaseNetWorkModule> networkCallback) {
         if (mMGliveApi == null || networkRequest == null) {
             return;
         }
@@ -43,7 +51,7 @@ public class NetworkRequestFactory {
         sendRequestByRxJava(mMGliveApi.getMenu(networkRequest.getQeryMap(), networkRequest.getHeaderMap()), networkCallback);
     }
 
-    public static void postLiveUrl(NetworkRequest networkRequest, NetworkCallback networkCallback) {
+    public static void postLiveUrl(NetworkRequest networkRequest, NetworkCallback<BaseNetWorkModule> networkCallback) {
         if (mLivewApi == null || networkRequest == null) {
             return;
         }
@@ -51,10 +59,18 @@ public class NetworkRequestFactory {
         sendRequestByRxJava(mLivewApi.postLiveUrl(networkRequest.getQeryMap(), networkRequest.getHeaderMap()), networkCallback);
     }
 
+    public static void getHotCities(NetworkRequest networkRequest, NetworkCallback<HeFengModule> networkCallback) {
+        if (mCityApi == null || networkRequest == null) {
+            return;
+        }
 
-    private static void sendRequestByRxJava(Observable<Response<BaseNetWorkModule>> observable, NetworkCallback callBack) {
-        mClient.sendRequestByRxJava(observable, callBack);
+        sendRequestByRxJava(mCityApi.getHotCities(networkRequest.getQeryMap(), networkRequest.getHeaderMap()), networkCallback);
     }
 
+
+    private static <T> void sendRequestByRxJava(Observable<Response<T>> observable, NetworkCallback<T> callBack) {
+        RxClientInterface<T> rxClient = new RxClient<>();
+        rxClient.sendRequestByRxJava(mRxClientHelper.getNetworkContext(), observable, callBack);
+    }
 
 }

@@ -25,6 +25,7 @@ public class BaiDuLocationIm extends LocationInterface {
         //可选，是否需要地址信息，默认为不需要，即参数为false
         //如果开发者需要获得当前点的地址信息，此处必须为true
         option.setIsNeedAddress(true);
+        option.setIgnoreKillProcess(false);
         mLocationClient.setLocOption(option);
     }
 

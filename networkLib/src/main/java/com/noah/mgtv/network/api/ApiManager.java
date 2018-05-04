@@ -24,6 +24,10 @@ public class ApiManager {
         return buildApi(RequestConstents.BASE_URL_LIVE, DefaultHttpClientFactory.getDefaultOkHttpClient(), LiveUrlApi.class);
     }
 
+    public static CityUrlApi getCityUrlApi(){
+        return buildApi(RequestConstents.BASE_URL_WEATHER,DefaultHttpClientFactory.getDefaultOkHttpClient(),CityUrlApi.class);
+    }
+
     private static <T> T buildApi(String baseUrl, OkHttpClient okHttpClient, Class<T> cls) {
         if (TextUtils.isEmpty(baseUrl) || cls == null) {
             return null;

@@ -11,9 +11,24 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
 import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
 import com.mcxtzhang.indexlib.suspension.SuspensionDecoration;
+import com.noah.mgtv.datalib.hefeng.Basic;
+import com.noah.mgtv.datalib.hefeng.HeFengModule;
+import com.noah.mgtv.datalib.hefeng.HeWeather;
+import com.noah.mgtv.network.NetworkCallback;
+import com.noah.mgtv.network.NetworkRequest;
+import com.noah.mgtv.network.NetworkRequestFactory;
+import com.noah.mgtv.network.constents.RequestConstents;
+import com.noah.mgtv.toolslib.IoUtils;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import zalex.person.com.citytoollib.adapter.MeituanAdapter;
 import zalex.person.com.citytoollib.adapter.MeituanHeaderFooterAdapter;
@@ -48,7 +63,8 @@ public class MeituanSelectCityActivity extends BaseActivity {
         initList();
         initRecyclerView();
         initInDexBar();
-        initDatas(getResources().getStringArray(R.array.provinces));
+        initLocalCityDatas();
+        loadHotCities();
     }
 
     private void initList() {
@@ -87,31 +103,75 @@ public class MeituanSelectCityActivity extends BaseActivity {
 
     /**
      * 组织数据源
-     *
-     * @param data
-     * @return
      */
-    private void initDatas(final String[] data) {
-        MeituanHeaderBean header = mHeaderDatas.get(0);
-        List<String> hotCities = new ArrayList<>();
-        hotCities.add("上海");
-        hotCities.add("北京");
-        hotCities.add("杭州");
-        hotCities.add("广州");
-        header.setCityList(hotCities);
+    private void initLocalCityDatas() {
         mBodyDatas = new ArrayList<>();
-        for (int i = 0; i < data.length; i++) {
-            MeiTuanBean cityBean = new MeiTuanBean();
-            cityBean.setCity(data[i]);//设置城市名称
-            mBodyDatas.add(cityBean);
+        InputStream inputStream = null;
+        BufferedInputStream bufferedInputStream = null;
+        try {
+            String json;
+            inputStream = getAssets().open("cities.json");
+            bufferedInputStream = new BufferedInputStream(inputStream);
+            byte[] b = new byte[bufferedInputStream.available()];
+            bufferedInputStream.read(b);
+            json = new String(b, "UTF-8");
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray jsonArray = jsonObject.getJSONArray("provinces");
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject province = jsonArray.getJSONObject(i);
+                JSONArray cityArray = (JSONArray) province.get("cities");
+                for (int j = 0; j < cityArray.length(); j++) {
+                    mBodyDatas.add(new MeiTuanBean(cityArray.getString(j)));
+                }
+            }
+            //先排序
+            mIndexBar.getDataHelper().sortSourceDatas(mBodyDatas);
+            mAdapter.setDatas(mBodyDatas);
+            mSourceDatas.addAll(mBodyDatas);
+            mIndexBar.setmSourceDatas(mSourceDatas)//设置数据
+                    .invalidate();
+            mDecoration.setmDatas(mSourceDatas);
+            mHeaderAdapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            IoUtils.close(bufferedInputStream);
+            IoUtils.close(inputStream);
         }
-        //先排序
-        mIndexBar.getDataHelper().sortSourceDatas(mBodyDatas);
-        mAdapter.setDatas(mBodyDatas);
-        mSourceDatas.addAll(mBodyDatas);
-        mIndexBar.setmSourceDatas(mSourceDatas)//设置数据
-                .invalidate();
-        mDecoration.setmDatas(mSourceDatas);
-        mHeaderAdapter.notifyDataSetChanged();
+
     }
+
+    private void loadHotCities() {
+        Map<String, Object> query = new HashMap<>();
+        query.put("group", "cn");
+        query.put("key", RequestConstents.WEATHER_KEY);
+        NetworkRequest.Builder builder = new NetworkRequest.Builder();
+        NetworkRequest networkRequest = builder.querys(query).build();
+        NetworkRequestFactory.getHotCities(networkRequest, mHotCitiesCallback);
+    }
+
+    private NetworkCallback<HeFengModule> mHotCitiesCallback = new NetworkCallback<HeFengModule>() {
+        @Override
+        public void onSuccess(HeFengModule module) {
+            MeituanHeaderBean header = mHeaderDatas.get(0);
+            List<HeWeather> heWeatherList = module.getHeWeather6();
+            for (HeWeather heWeather:heWeatherList) {
+                List<Basic> basicList = heWeather.getBasic();
+                for (Basic basic : basicList) {
+                    header.addCity(basic.getLocation());
+                }
+            }
+            mHeaderAdapter.notifyItemRangeChanged(0, 1);
+        }
+
+        @Override
+        public void onSuccessInError(HeFengModule module) {
+
+        }
+
+        @Override
+        public void onFaile(Throwable e) {
+
+        }
+    };
 }

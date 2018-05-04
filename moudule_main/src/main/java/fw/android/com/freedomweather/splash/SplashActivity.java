@@ -30,12 +30,14 @@ public class SplashActivity extends BaseActivity {
     private LocationListener mListener = new LocationListener() {
         @Override
         public void onLocationRecieve(Location location) {
-            if (tv_city != null) {
-                tv_city.setAlpha(0);
-                tv_city.setText(location.getCity() + location.getDistrict());
-                tv_city.animate().setDuration(1000).alpha(1).start();
-                sendMessage(WHAT_GO_MAIN, WHAT_DELAY);
-            }
+            RouterManager.buildRouter().uri(RouterSchema.SCHEMA_SELECT_CITIES).build();
+            finish();
+//            if (tv_city != null) {
+//                tv_city.setAlpha(0);
+//                tv_city.setText(location.getCity() + location.getDistrict());
+//                tv_city.animate().setDuration(1000).alpha(1).start();
+//                sendMessage(WHAT_GO_MAIN, WHAT_DELAY);
+//            }
         }
 
         @Override

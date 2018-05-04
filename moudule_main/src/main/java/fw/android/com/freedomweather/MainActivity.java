@@ -10,13 +10,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.noah.mgtv.imagelib.ImageDrawView;
 import com.noah.mgtv.toolslib.NumberConventer;
 import com.noah.mgtv.toolslib.ScreenUtil;
 import com.stone.pile.libs.PileLayout;
 
 import zalex.person.com.frameworklib.base.BaseActivity;
+import zalex.person.com.frameworklib.route.RouterSchema;
 
+@Route(path = RouterSchema.SCHEMA_MAIN_PAGE)
 public class MainActivity extends BaseActivity {
     private NavigationView navigationView;
     private PileLayout pileLayout;

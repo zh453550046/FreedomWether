@@ -9,6 +9,11 @@ android {
         versionCode rootProject.ext.versionCode
         versionName rootProject.ext.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -16,6 +21,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
 }
 
 dependencies {
@@ -28,6 +34,8 @@ dependencies {
     androidTestImplementation rootProject.ext.test.androidTestRunner
     androidTestImplementation rootProject.ext.test.espresso
     implementation rootProject.ext.normalDependencies.design
+    implementation rootProject.ext.normalDependencies.router
+    annotationProcessor rootProject.ext.normalDependencies.routerAnnotations
     implementation project(':viewlib')
     implementation project(':frameworklib')
     implementation project(':toolslib')

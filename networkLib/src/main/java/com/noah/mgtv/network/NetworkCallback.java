@@ -1,16 +1,14 @@
 package com.noah.mgtv.network;
 
-import com.noah.mgtv.datalib.BaseNetWorkModule;
-
 /**
  * Created by zhouweinan on 2018/4/2.
  */
 
-public interface NetworkCallback {
+public interface NetworkCallback<T> {
 
-    public void onSuccess(BaseNetWorkModule baseNetWorkModule);
+    public void onSuccess(T module);
 
-    public void onSuccessInError(BaseNetWorkModule baseNetWorkModule);
+    public void onSuccessInError(T module);
 
     public void onFaile(Throwable e);
 
