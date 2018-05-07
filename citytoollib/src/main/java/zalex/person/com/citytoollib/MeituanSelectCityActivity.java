@@ -8,6 +8,7 @@ import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.github.promeg.pinyinhelper.Pinyin;
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
 import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
 import com.mcxtzhang.indexlib.suspension.SuspensionDecoration;
@@ -124,6 +125,7 @@ public class MeituanSelectCityActivity extends BaseActivity {
                     mBodyDatas.add(new MeiTuanBean(cityArray.getString(j)));
                 }
             }
+            String c = Pinyin.toPinyin('长');
             //先排序
             mIndexBar.getDataHelper().sortSourceDatas(mBodyDatas);
             mAdapter.setDatas(mBodyDatas);
@@ -155,7 +157,7 @@ public class MeituanSelectCityActivity extends BaseActivity {
         public void onSuccess(HeFengModule module) {
             MeituanHeaderBean header = mHeaderDatas.get(0);
             List<HeWeather> heWeatherList = module.getHeWeather6();
-            for (HeWeather heWeather:heWeatherList) {
+            for (HeWeather heWeather : heWeatherList) {
                 List<Basic> basicList = heWeather.getBasic();
                 for (Basic basic : basicList) {
                     header.addCity(basic.getLocation());

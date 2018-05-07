@@ -1,7 +1,6 @@
 package fw.android.com.freedomweather;
 
 import android.os.Bundle;
-import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
