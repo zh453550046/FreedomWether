@@ -2,6 +2,8 @@ package zalex.person.com.citytoollib.adapter;
 
 import android.content.Context;
 
+import com.github.promeg.pinyinhelper.Pinyin;
+
 import java.util.List;
 
 import zalex.person.com.citytoollib.R;
@@ -22,6 +24,10 @@ public class MeituanAdapter extends CommonAdapter<MeiTuanBean> {
 
     @Override
     public void convert(ViewHolder holder, final MeiTuanBean cityBean) {
-        holder.setText(R.id.tvCity, cityBean.getCity());
+        String city = cityBean.getCity();
+        if (!Pinyin.isChinese(city.charAt(0))) {
+            city = city.substring(1);
+        }
+        holder.setText(R.id.tvCity, city);
     }
 }

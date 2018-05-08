@@ -3,4 +3,5 @@
     <string name="app">FreedomWeather</string>
     <string name="logo_tip">正在定位中&#8230;</string>
     <string name="transition_name">name</string>
+    <string name="slash_erro_locaion">定位失败,请手动选择您的位置</string>
 </resources>

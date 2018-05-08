@@ -23,6 +23,8 @@ public class MeituanHeaderFooterAdapter extends HeaderRecyclerAndFooterWrapperAd
 
     private Context mContext;
 
+    private OnHeaderItemClickListener mItemClickListener;
+
     public MeituanHeaderFooterAdapter(Context context, RecyclerView.Adapter mInnerAdapter) {
         super(mInnerAdapter);
         mContext = context;
@@ -40,14 +42,25 @@ public class MeituanHeaderFooterAdapter extends HeaderRecyclerAndFooterWrapperAd
                         holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                RouterManager.buildRouter().uri(RouterSchema.SCHEMA_MAIN_PAGE).build();
-                                if (mContext instanceof Activity) {
-                                    ((Activity) mContext).finish();
+                                if (mItemClickListener != null){
+                                    mItemClickListener.onHeaderItemClick(cityName);
                                 }
                             }
                         });
                     }
                 });
         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
+    }
+
+    public OnHeaderItemClickListener getItemClickListener() {
+        return mItemClickListener;
+    }
+
+    public void setItemClickListener(OnHeaderItemClickListener itemClickListener) {
+        this.mItemClickListener = itemClickListener;
+    }
+
+    public static interface OnHeaderItemClickListener {
+        void onHeaderItemClick(String  itemName);
     }
 }

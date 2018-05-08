@@ -22,6 +22,10 @@ public class BaiDuLocationIm extends LocationInterface {
     public void init(Context context) {
         mLocationClient = new LocationClient(context.getApplicationContext());
         LocationClientOption option = new LocationClientOption();
+        //可选，设置发起定位请求的间隔，int类型，单位ms
+        //如果设置为0，则代表单次定位，即仅定位一次，默认为0
+        //如果设置非0，需设置1000ms以上才有效
+        option.setScanSpan(0);
         //可选，是否需要地址信息，默认为不需要，即参数为false
         //如果开发者需要获得当前点的地址信息，此处必须为true
         option.setIsNeedAddress(true);

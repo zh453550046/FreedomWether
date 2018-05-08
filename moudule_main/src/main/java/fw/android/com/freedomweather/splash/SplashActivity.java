@@ -5,10 +5,13 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.noah.mgtv.imagelib.ImageDrawView;
+import com.noah.mgtv.toolslib.sharedpreference.SpClient;
 
 import fw.android.com.freedomweather.MainActivity;
 import fw.android.com.freedomweather.R;
@@ -30,18 +33,17 @@ public class SplashActivity extends BaseActivity {
     private LocationListener mListener = new LocationListener() {
         @Override
         public void onLocationRecieve(Location location) {
-            RouterManager.buildRouter().uri(RouterSchema.SCHEMA_SELECT_CITIES).build();
-            finish();
-//            if (tv_city != null) {
-//                tv_city.setAlpha(0);
-//                tv_city.setText(location.getCity() + location.getDistrict());
-//                tv_city.animate().setDuration(1000).alpha(1).start();
-//                sendMessage(WHAT_GO_MAIN, WHAT_DELAY);
-//            }
+            if (tv_city != null) {
+                tv_city.setAlpha(0);
+                tv_city.setText(location.getCity() + location.getDistrict());
+                tv_city.animate().setDuration(1000).alpha(1).start();
+                sendMessage(WHAT_GO_MAIN, WHAT_DELAY);
+            }
         }
 
         @Override
         public void onError() {
+            Toast.makeText(SplashActivity.this, getString(R.string.slash_erro_locaion), Toast.LENGTH_SHORT).show();
             RouterManager.buildRouter().uri(RouterSchema.SCHEMA_SELECT_CITIES).build();
             finish();
         }

@@ -38,6 +38,7 @@ dependencies {
     implementation rootProject.ext.normalDependencies.recyclerview
     implementation rootProject.ext.normalDependencies.router
     annotationProcessor rootProject.ext.normalDependencies.routerAnnotations
+    implementation rootProject.ext.normalDependencies.tinypinyinAndroid
     implementation project(':frameworklib')
     implementation project(':networkLib')
     implementation project(':toolslib')

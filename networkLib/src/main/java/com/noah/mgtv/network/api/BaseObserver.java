@@ -43,60 +43,97 @@ public class BaseObserver<T> implements Observer<Response<T>> {
     @Override
     public void onNext(Response<T> response) {
         T result = response.body();
-        if (result instanceof BaseNetWorkModule) {
-            BaseNetWorkModule baseNetWorkModule = (BaseNetWorkModule) result;
-            if (response.isSuccessful()) {
-                if (mNetworkCallback != null) {
-                    if (TextUtils.equals(baseNetWorkModule.getCode(), "0") || TextUtils.equals(baseNetWorkModule.getCode(), "200")) {
-                        try {
-                            mNetworkCallback.onSuccess(result);
-                        } catch (Throwable e) {
-                            if (mHandler != null) {
-                                mHandler.handlerParseErrorAfterRequest(e);
-                            }
-                        }
-                    } else {
+//        if (result instanceof BaseNetWorkModule) {
+//            BaseNetWorkModule baseNetWorkModule = (BaseNetWorkModule) result;
+//            if (response.isSuccessful()) {
+//                if (mNetworkCallback != null) {
+//                    if (TextUtils.equals(baseNetWorkModule.getCode(), "0") || TextUtils.equals(baseNetWorkModule.getCode(), "200")) {
+//                        try {
+//                            mNetworkCallback.onSuccess(result);
+//                        } catch (Throwable e) {
+//                            if (mHandler != null) {
+//                                mHandler.handlerParseErrorAfterRequest(e);
+//                            }
+//                        }
+//                    } else {
+//                        if (mHandler != null) {
+//                            mHandler.handlerSuccessInErrorState(response);
+//                        }
+//                        mNetworkCallback.onSuccessInError(result);
+//                    }
+//                }
+//                mNetworkCallback = null;
+//            } else {
+//                mHandler.handlerHttpError(response);
+//            }
+//        } else {
+//            if (result instanceof HeFengModule) {
+//                HeFengModule heFengModule = (HeFengModule) result;
+//                if (response.isSuccessful()) {
+//                    if (mNetworkCallback != null) {
+//                        List<HeWeather> heWeatherList = heFengModule.getHeWeather6();
+//                        if (heWeatherList != null && heWeatherList.size() > 0) {
+//                            HeWeather heWeather = heWeatherList.get(0);
+//                            if (heWeather != null && TextUtils.equals(heWeather.getStatus(), "ok")) {
+//                                try {
+//                                    mNetworkCallback.onSuccess(result);
+//                                } catch (Throwable e) {
+//                                    if (mHandler != null) {
+//                                        mHandler.handlerParseErrorAfterRequest(e);
+//                                    }
+//                                }
+//                            } else {
+//                                if (mHandler != null) {
+//                                    mHandler.handlerSuccessInErrorState(response);
+//                                }
+//                                mNetworkCallback.onSuccessInError(result);
+//                            }
+//                        }
+//                    }
+//                    mNetworkCallback = null;
+//                } else {
+//                    mHandler.handlerHttpError(response);
+//                }
+//            }
+//        }
+        if (response.isSuccessful()) {
+            if (mNetworkCallback != null) {
+                if (isResultOk(result)) {
+                    try {
+                        mNetworkCallback.onSuccess(result);
+                    } catch (Throwable e) {
                         if (mHandler != null) {
-                            mHandler.handlerSuccessInErrorState(response);
+                            mHandler.handlerParseErrorAfterRequest(e);
                         }
-                        mNetworkCallback.onSuccessInError(result);
                     }
+                } else {
+                    if (mHandler != null) {
+                        mHandler.handlerSuccessInErrorState(response);
+                    }
+                    mNetworkCallback.onSuccessInError(result);
                 }
                 mNetworkCallback = null;
-            } else {
-                mHandler.handlerHttpError(response);
             }
         } else {
-            if (result instanceof HeFengModule) {
-                HeFengModule heFengModule = (HeFengModule) result;
-                if (response.isSuccessful()) {
-                    if (mNetworkCallback != null) {
-                        List<HeWeather> heWeatherList = heFengModule.getHeWeather6();
-                        if (heWeatherList != null && heWeatherList.size() > 0) {
-                            HeWeather heWeather = heWeatherList.get(0);
-                            if (heWeather != null && TextUtils.equals(heWeather.getStatus(), "ok")) {
-                                try {
-                                    mNetworkCallback.onSuccess(result);
-                                } catch (Throwable e) {
-                                    if (mHandler != null) {
-                                        mHandler.handlerParseErrorAfterRequest(e);
-                                    }
-                                }
-                            } else {
-                                if (mHandler != null) {
-                                    mHandler.handlerSuccessInErrorState(response);
-                                }
-                                mNetworkCallback.onSuccessInError(result);
-                            }
-                        }
-                    }
-                    mNetworkCallback = null;
-                } else {
-                    mHandler.handlerHttpError(response);
-                }
+            mHandler.handlerHttpError(response);
+        }
+
+    }
+
+    private boolean isResultOk(T result) {
+        if (result instanceof BaseNetWorkModule) {
+            BaseNetWorkModule baseNetWorkModule = (BaseNetWorkModule) result;
+            return TextUtils.equals(baseNetWorkModule.getCode(), "0") || TextUtils.equals(baseNetWorkModule.getCode(), "200");
+        } else if (result instanceof HeFengModule) {
+            HeFengModule heFengModule = (HeFengModule) result;
+            List<HeWeather> heWeatherList = heFengModule.getHeWeather6();
+            if (heWeatherList != null && heWeatherList.size() > 0) {
+                HeWeather heWeather = heWeatherList.get(0);
+                return heWeather != null && TextUtils.equals(heWeather.getStatus(), "ok");
             }
         }
 
+        return false;
     }
 
     @Override

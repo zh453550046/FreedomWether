@@ -16,14 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiManager {
 
-    public static MGliveApi getMGliveApi() {
-        return buildApi(RequestConstents.BASE_URL_MGLIVE, DefaultHttpClientFactory.getDefaultOkHttpClient(), MGliveApi.class);
-    }
-
-    public static LiveUrlApi getLiveUrlAPi() {
-        return buildApi(RequestConstents.BASE_URL_LIVE, DefaultHttpClientFactory.getDefaultOkHttpClient(), LiveUrlApi.class);
-    }
-
     public static CityUrlApi getCityUrlApi(){
         return buildApi(RequestConstents.BASE_URL_WEATHER,DefaultHttpClientFactory.getDefaultOkHttpClient(),CityUrlApi.class);
     }
